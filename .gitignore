@@ -1,0 +1,28 @@
+# .NET ignore files
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Auto-generated VS Code settings
+.vscode/
+
+# Mac OS X files
+.DS_Store
+
+# Windows thumbnail cache
+Thumbs.db
