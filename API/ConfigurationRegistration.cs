@@ -1,4 +1,5 @@
 ﻿using BookingService.Manager.Interface;
+using BookingService.Manager; // Make sure to include this namespace
 
 namespace BookingService
 {
@@ -6,7 +7,7 @@ namespace BookingService
     {
         public static void AddConfiguration(this IServiceCollection services)
         {
-            services.AddTransient<IUserManager, IUserManager>();
+            services.AddTransient<IUserManager, UserManager>(); // Use UserManager as the implementation
         }
     }
 }

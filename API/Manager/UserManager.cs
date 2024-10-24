@@ -6,7 +6,7 @@ using System.Text;
 
 namespace BookingService.Manager
 {
-    public class UserManager: IUserManager
+    public class UserManager : IUserManager
     {
         public string GenerateJwtToken(string userName)
         {
@@ -15,12 +15,12 @@ namespace BookingService.Manager
 
             var claims = new[]
             {
-            new Claim(JwtRegisteredClaimNames.Sub, userName),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-        };
+        new Claim(JwtRegisteredClaimNames.Sub, userName),
+        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+    };
 
             // Configure the key, issuer, and audience
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your-very-strong-secret-key")); // Change this to your secret key
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ThisIsASecureKeyForJwtAuthentication123!")); // Ensure the key is at least 16 bytes
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
@@ -32,5 +32,6 @@ namespace BookingService.Manager
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
     }
 }

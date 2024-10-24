@@ -2,6 +2,7 @@
 using Core.Entities.Models;
 using Core.Entities.InputModels;
 using Microsoft.AspNetCore.Authorization;
+using BookingService.Manager.Interface;
 
 namespace BookingService.Controllers
 {
@@ -11,10 +12,12 @@ namespace BookingService.Controllers
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
+        private readonly IUserManager _userManager;
 
-        public UserController(ILogger<UserController> logger)
+        public UserController(ILogger<UserController> logger,IUserManager userManager)
         {
             _logger = logger;
+            _userManager = userManager;
         }
 
         [HttpPost("Register", Name = "Register")]
@@ -44,6 +47,8 @@ namespace BookingService.Controllers
                 CodeMessageWithData<UserInfo> code = new CodeMessageWithData<UserInfo>();
                 code.code = "201";
                 code.message = "Okay";
+                var token = _userManager.GenerateJwtToken(info.userCode);
+                user.UserCode = token;
                 code.data = user;
                 return Ok(code);
             }

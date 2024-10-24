@@ -1,4 +1,5 @@
-﻿using Interface.Interfaces;
+﻿using BookingService;
+using Interface.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -19,6 +20,7 @@ public class Startup
     {
         // Register repositories
         services.AddScoped<IBookingRepository, BookingRepository>();
+        services.AddConfiguration();
 
         // Configure JWT authentication
         services.AddAuthentication(options =>
@@ -34,9 +36,10 @@ public class Startup
                 ValidateAudience = true,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                ValidIssuer = Configuration["Jwt:Issuer"],
-                ValidAudience = Configuration["Jwt:Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                ValidIssuer = "yourIssuer",
+                ValidAudience = "yourAudience",
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ThisIsASecureKeyForJwtAuthentication123!")),
+                ClockSkew = TimeSpan.Zero
             };
         });
 
