@@ -26,3 +26,5 @@ bld/
 
 # Windows thumbnail cache
 Thumbs.db
+*.v2
+.vs/
