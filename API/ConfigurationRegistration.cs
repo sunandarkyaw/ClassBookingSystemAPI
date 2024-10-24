@@ -1,5 +1,5 @@
-﻿using BookingService.Manager.Interface;
-using BookingService.Manager; // Make sure to include this namespace
+﻿using BookingService.Manager; // Make sure to include this namespace
+using BookingService.Manager.Interface;
 
 namespace BookingService
 {

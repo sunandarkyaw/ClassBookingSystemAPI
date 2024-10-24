@@ -3,6 +3,7 @@ using Interface.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Repository.Helper;
 using Repository.Repository;
 using System.Text;
 
@@ -20,6 +21,7 @@ public class Startup
     {
         // Register repositories
         services.AddScoped<IBookingRepository, BookingRepository>();
+        services.AddScoped<IDatabaseConnectionFactory, SqlConnectionFactory>();
         services.AddConfiguration();
 
         // Configure JWT authentication

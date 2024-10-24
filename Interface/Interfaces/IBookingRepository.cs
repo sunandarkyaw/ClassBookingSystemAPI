@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Interface.Interfaces
+﻿namespace Interface.Interfaces
 {
     public interface IBookingRepository
     {
-        List<String> GetScheduleList();
+        Task<List<string>> GetScheduleList();
     }
 }

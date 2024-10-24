@@ -1,19 +1,38 @@
 ﻿using Interface.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Repository.Helper;
+using System.Data;
+using Dapper;
 
 namespace Repository.Repository
 {
     public class BookingRepository : IBookingRepository
     {
-        public BookingRepository() { }
-
-        public List<String> GetScheduleList()
+        private IDatabaseConnectionFactory _connectionFactory;
+        public BookingRepository(IDatabaseConnectionFactory connectionFactory)
         {
-            return new List<String>();
+            _connectionFactory = connectionFactory;
+        }
+
+        public async Task<List<String>> GetScheduleList()
+        {
+            try
+            {
+                using (IDbConnection conn = _connectionFactory.createConnection("DatabaseConnections.SSBISContributions"))
+                {
+                    List<String> responseData = (await conn.QueryAsync<String>("spGetOustandingListByER",                    
+                    commandType: CommandType.StoredProcedure)).ToList();
+
+                    return responseData;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                _connectionFactory.closeConnection("DatabaseConnections.SSBISContributions");
+            }
         }
 
     }

@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Core.Entities.Models;
+﻿using BookingService.Manager.Interface;
 using Core.Entities.InputModels;
+using Core.Entities.Models;
 using Microsoft.AspNetCore.Authorization;
-using BookingService.Manager.Interface;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BookingService.Controllers
 {
@@ -14,7 +14,7 @@ namespace BookingService.Controllers
         private readonly ILogger<UserController> _logger;
         private readonly IUserManager _userManager;
 
-        public UserController(ILogger<UserController> logger,IUserManager userManager)
+        public UserController(ILogger<UserController> logger, IUserManager userManager)
         {
             _logger = logger;
             _userManager = userManager;
@@ -58,7 +58,7 @@ namespace BookingService.Controllers
             }
         }
 
-        
+
         [HttpPost("GetProfile", Name = "GetProfile")]
         public IActionResult GetProfile(UserInputInfo info)
         {
@@ -76,7 +76,7 @@ namespace BookingService.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+
         [HttpPost("ChangePassword", Name = "ChangePassword")]
         public IActionResult ChangePassword(UserInputInfo info)
         {
