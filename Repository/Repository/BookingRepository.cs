@@ -2,6 +2,7 @@
 using Repository.Helper;
 using System.Data;
 using Dapper;
+using Core.Entities.Models;
 
 namespace Repository.Repository
 {
@@ -13,13 +14,13 @@ namespace Repository.Repository
             _connectionFactory = connectionFactory;
         }
 
-        public async Task<List<String>> GetScheduleList()
+        public async Task<List<ScheduleInfo>> GetScheduleList()
         {
             try
             {
                 using (IDbConnection conn = _connectionFactory.createConnection("DatabaseConnections.SSBISContributions"))
                 {
-                    List<String> responseData = (await conn.QueryAsync<String>("spGetOustandingListByER",                    
+                    List<ScheduleInfo> responseData = (await conn.QueryAsync<ScheduleInfo>("SP_GetScheduleList",                    
                     commandType: CommandType.StoredProcedure)).ToList();
 
                     return responseData;

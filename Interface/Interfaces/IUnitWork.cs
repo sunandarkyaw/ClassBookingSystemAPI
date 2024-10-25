@@ -1,6 +1,7 @@
 ﻿namespace Interface.Interfaces
 {
-    internal interface IUnitWork
+    public interface IUnitWork
     {
+        IBookingRepository _iBookingRepository { get; }
     }
 }

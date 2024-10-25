@@ -1,7 +1,9 @@
-﻿namespace Interface.Interfaces
+﻿using Core.Entities.Models;
+
+namespace Interface.Interfaces
 {
     public interface IBookingRepository
     {
-        Task<List<string>> GetScheduleList();
+        Task<List<ScheduleInfo>> GetScheduleList();
     }
 }

@@ -8,6 +8,7 @@ namespace BookingService
         public static void AddConfiguration(this IServiceCollection services)
         {
             services.AddTransient<IUserManager, UserManager>(); // Use UserManager as the implementation
+            services.AddTransient<IBookingScheduleManager, BookingScheduleManager>(); // Use UserManager as the implementation
         }
     }
 }

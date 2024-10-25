@@ -3,6 +3,7 @@ using Interface.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Repository;
 using Repository.Helper;
 using Repository.Repository;
 using System.Text;
@@ -20,7 +21,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         // Register repositories
-        services.AddScoped<IBookingRepository, BookingRepository>();
+        services.AddInfrastructure();
         services.AddScoped<IDatabaseConnectionFactory, SqlConnectionFactory>();
         services.AddConfiguration();
 
