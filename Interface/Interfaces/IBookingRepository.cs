@@ -7,5 +7,6 @@ namespace Interface.Interfaces
     {
         Task<List<ScheduleInfo>> GetScheduleList();
         Task<CodeMessage> BookingClass(BookingInput info);
+        Task<CodeMessage> CancelBooking(CancelInput info);
     }
 }

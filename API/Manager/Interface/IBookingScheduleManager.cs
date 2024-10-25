@@ -7,5 +7,6 @@ namespace BookingService.Manager.Interface
     {
         Task<List<ScheduleInfo>> GetScheduleInfosAsync();
         Task<CodeMessage> BookingClassAsync(BookingInput input);
+        Task<CodeMessage> CancelBookingAsync(CancelInput input);
     }
 }

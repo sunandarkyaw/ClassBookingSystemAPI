@@ -13,6 +13,6 @@
 
     public class CancelInput
     {
-
+        public string bookingID { get;set; } 
     }
 }

@@ -63,6 +63,32 @@ namespace Repository.Repository
                 _connectionFactory.closeConnection("ClassBookingDB");
             }
         }
+        
+        public async Task<CodeMessage> CancelBooking(CancelInput info)
+        {
+            CodeMessage responseData = new CodeMessage();
+            try
+            {
+                using (IDbConnection conn = _connectionFactory.createConnection("ClassBookingDB"))
+                {
+                    responseData = conn.Query<CodeMessage>("SP_CancelBooking",
+                    new
+                    {
+                        @bookingID = info.bookingID
+                    },
+                    commandType: CommandType.StoredProcedure).FirstOrDefault();
+                    return responseData;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                _connectionFactory.closeConnection("ClassBookingDB");
+            }
+        }
 
     }
 }

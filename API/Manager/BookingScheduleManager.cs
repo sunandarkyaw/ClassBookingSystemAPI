@@ -39,5 +39,18 @@ namespace BookingService.Manager
                 throw ex;
             }
         }
+        
+        public async Task<CodeMessage> CancelBookingAsync(CancelInput input)
+        {
+            try
+            {
+                CodeMessage data = await _unitWork._iBookingRepository.CancelBooking(input);
+                return data;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

@@ -70,14 +70,12 @@ namespace BookingService.Controllers
         }
 
         [HttpPost("CancelClass", Name = "CancelClass")]
-        public IActionResult CancelClass(CancelInput info)
+        public async Task<IActionResult> CancelClass(CancelInput info)
         {
             try
             {
-                UserInfo user = new UserInfo();
                 CodeMessage code = new CodeMessage();
-                code.code = "201";
-                code.message = "Okay";
+                code = await _bookingScheduleManager.CancelBookingAsync(info);
                 return Ok(code);
             }
             catch (Exception ex)
