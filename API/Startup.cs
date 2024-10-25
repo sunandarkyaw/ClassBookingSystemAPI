@@ -1,4 +1,5 @@
 ﻿using BookingService;
+using Core.Entities.Models;
 using Interface.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -44,6 +45,11 @@ public class Startup
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ThisIsASecureKeyForJwtAuthentication123!")),
                 ClockSkew = TimeSpan.Zero
             };
+        });
+
+        services.AddTransient<IDatabaseConnectionFactory>(e =>
+        {
+            return new SqlConnectionFactory(Configuration.GetSection("ConnectionStrings"));
         });
 
         // Add Swagger

@@ -55,15 +55,15 @@ namespace Repository.Helper
         {
 
             {
-                var ssb = new SqlConnectionStringBuilder(_connectionConfig.GetRequiredSection(conName).Value);
-                string strUserId = ssb.UserID;
-                string strPassword = ssb.Password;
-                string strIP = ssb.DataSource;
-                string strDb = ssb.InitialCatalog;
-                int strMinPoolSize = ssb.MinPoolSize;
-                int strMaxPoolSize = ssb.MaxPoolSize;
-                bool strPool = ssb.Pooling;
-                int strTimeout = ssb.ConnectTimeout;
+                var conSt = new SqlConnectionStringBuilder(_connectionConfig.GetRequiredSection(conName).Value);
+                string strUserId = conSt.UserID;
+                string strPassword = conSt.Password;
+                string strIP = conSt.DataSource;
+                string strDb = conSt.InitialCatalog;
+                int strMinPoolSize = conSt.MinPoolSize;
+                int strMaxPoolSize = conSt.MaxPoolSize;
+                bool strPool = conSt.Pooling;
+                int strTimeout = conSt.ConnectTimeout;
                 string result = Server + strIP + DataBase + strDb + UserId + strUserId + Password + strPassword + MinPoolSize + strMinPoolSize + "" + MaxPoolSize + strMaxPoolSize + "" + Pooling + strPool + "";
 
                 var sqlConnection = new SqlConnection(result);

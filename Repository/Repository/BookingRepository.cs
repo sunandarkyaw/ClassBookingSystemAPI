@@ -18,7 +18,7 @@ namespace Repository.Repository
         {
             try
             {
-                using (IDbConnection conn = _connectionFactory.createConnection("DatabaseConnections.SSBISContributions"))
+                using (IDbConnection conn = _connectionFactory.createConnection("ClassBookingDB"))
                 {
                     List<ScheduleInfo> responseData = (await conn.QueryAsync<ScheduleInfo>("SP_GetScheduleList",                    
                     commandType: CommandType.StoredProcedure)).ToList();
@@ -32,7 +32,7 @@ namespace Repository.Repository
             }
             finally
             {
-                _connectionFactory.closeConnection("DatabaseConnections.SSBISContributions");
+                _connectionFactory.closeConnection("ClassBookingDB");
             }
         }
 
