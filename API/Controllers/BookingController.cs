@@ -55,15 +55,12 @@ namespace BookingService.Controllers
         }
 
         [HttpPost("BookClass", Name = "BookClass")]
-        public IActionResult BookClass(BookingInput info)
+        public async Task<IActionResult> BookClass(BookingInput info)
         {
             try
             {
-                UserInfo user = new UserInfo();
-                CodeMessageWithData<UserInfo> code = new CodeMessageWithData<UserInfo>();
-                code.code = "201";
-                code.message = "Okay";
-                code.data = user;
+                CodeMessage code = new CodeMessage();
+                code = await _bookingScheduleManager.BookingClassAsync(info);
                 return Ok(code);
             }
             catch (Exception ex)

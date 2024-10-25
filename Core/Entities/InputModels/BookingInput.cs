@@ -7,7 +7,8 @@
 
     public class BookingInput
     {
-
+        public string classID { get; set; }
+        public string userID { get; set; }
     }
 
     public class CancelInput
