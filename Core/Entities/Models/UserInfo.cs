@@ -7,4 +7,9 @@
         public string Email { get; set; }
         public decimal Credit { get; set; }
     }
+
+    public class AuthorizeUserInfo : UserInfo
+    {
+        public string token { get; set; }
+    }
 }

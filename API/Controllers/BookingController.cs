@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookingService.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class BookingController : ControllerBase
@@ -37,7 +38,7 @@ namespace BookingService.Controllers
         }
 
         [HttpPost("GetScheduleList", Name = "GetScheduleList")]
-        public async Task<IActionResult> GetScheduleList(LoginInfo info)
+        public async Task<IActionResult> GetScheduleList()
         {
             try
             {

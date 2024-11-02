@@ -1,36 +1,55 @@
 ﻿using BookingService.Manager.Interface;
+using Core.Entities.Models;
+using Core.Entities.InputModels;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Security.Cryptography;
 
 namespace BookingService.Manager
 {
     public class UserManager : IUserManager
     {
-        public string GenerateJwtToken(string userName)
+        public string GenerateJwtToken(LoginInfo info, string jwtkey, string jwtIssueer, string jwtAudience)
         {
-            // Define the token expiration time
-            var expiryDuration = TimeSpan.FromMinutes(30);
+            var tokenHandler = new JwtSecurityTokenHandler();
 
-            var claims = new[]
+            var key = Encoding.ASCII.GetBytes(jwtkey);
+            var tokenDescriptior = new SecurityTokenDescriptor
             {
-        new Claim(JwtRegisteredClaimNames.Sub, userName),
-        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-    };
+                Subject = new ClaimsIdentity(new Claim[]{
+                    new("userCode", info.userCode),
+                    new("email",info.userCode + "@gmail.com")
+                }),
+                Expires = DateTime.Now.AddDays(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
+                        SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptior);
+            var refreshToken = GenerateRefreshToken();
 
-            // Configure the key, issuer, and audience
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ThisIsASecureKeyForJwtAuthentication123!")); // Ensure the key is at least 16 bytes
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            return tokenHandler.WriteToken(token);
+        }
 
-            var token = new JwtSecurityToken(
-                issuer: "yourIssuer", // Change to your issuer
-                audience: "yourAudience", // Change to your audience
-                claims: claims,
-                expires: DateTime.Now.Add(expiryDuration),
-                signingCredentials: creds);
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+        private string GenerateRefreshToken()
+        {
+            var randomNumber = new byte[32];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(randomNumber);
+                return Convert.ToBase64String(randomNumber);
+            }
+        }
+
+        public AuthorizeUserInfo GetUser(LoginInfo userInfo)
+        {
+            AuthorizeUserInfo user = new AuthorizeUserInfo();
+            user.UserName = userInfo.userCode;
+            user.UserCode = userInfo.userCode;
+            user.Email = userInfo.userCode + "@gmail.com";
+            return user;
         }
 
     }

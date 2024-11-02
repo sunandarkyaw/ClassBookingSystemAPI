@@ -1,7 +1,11 @@
-﻿namespace BookingService.Manager.Interface
+﻿using Core.Entities.InputModels;
+using Core.Entities.Models;
+
+namespace BookingService.Manager.Interface
 {
     public interface IUserManager
     {
-        string GenerateJwtToken(string userName);
+        string GenerateJwtToken(LoginInfo userName, string jwtkey, string jwtIssueer, string jwtAudience);
+        AuthorizeUserInfo GetUser(LoginInfo userInfo);
     }
 }
