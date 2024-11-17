@@ -13,6 +13,11 @@
 
     public class CancelInput
     {
-        public string bookingID { get;set; } 
+        public string bookingID { get; set; }
+    }
+
+    public class ScheduleListInput
+    {
+        public string countryID { get; set; }
     }
 }

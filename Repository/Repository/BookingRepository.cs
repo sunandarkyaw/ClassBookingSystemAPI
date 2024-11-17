@@ -15,13 +15,39 @@ namespace Repository.Repository
             _connectionFactory = connectionFactory;
         }
 
-        public async Task<List<ScheduleInfo>> GetScheduleList()
+        public async Task<List<ScheduleInfo>> GetALLScheduleList(ScheduleListInput listInput)
         {
             try
             {
                 using (IDbConnection conn = _connectionFactory.createConnection("ClassBookingDB"))
                 {
                     List<ScheduleInfo> responseData = (await conn.QueryAsync<ScheduleInfo>("SP_GetScheduleList",
+                    new
+                    {
+                        @countryID = listInput.countryID
+                    },
+                    commandType: CommandType.StoredProcedure)).ToList();
+
+                    return responseData;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                _connectionFactory.closeConnection("ClassBookingDB");
+            }
+        }
+
+        public async Task<List<PackageInfo>> GetALLPackageList()
+        {
+            try
+            {
+                using (IDbConnection conn = _connectionFactory.createConnection("ClassBookingDB"))
+                {
+                    List<PackageInfo> responseData = (await conn.QueryAsync<PackageInfo>("SP_GetPurchaseList",
                     commandType: CommandType.StoredProcedure)).ToList();
 
                     return responseData;
@@ -63,7 +89,7 @@ namespace Repository.Repository
                 _connectionFactory.closeConnection("ClassBookingDB");
             }
         }
-        
+
         public async Task<CodeMessage> CancelBooking(CancelInput info)
         {
             CodeMessage responseData = new CodeMessage();

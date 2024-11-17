@@ -14,11 +14,24 @@ namespace BookingService.Manager
             _unitWork = unitWork;
         }
 
-        public async Task<List<ScheduleInfo>> GetScheduleInfosAsync()
+        public async Task<List<ScheduleInfo>> GetScheduleInfosAsync(ScheduleListInput listInput)
         {
             try
             {
-                List<ScheduleInfo> data = await _unitWork._iBookingRepository.GetScheduleList();
+                List<ScheduleInfo> data = await _unitWork._iBookingRepository.GetALLScheduleList(listInput);
+                return data;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<PackageInfo>> GetPackageInfosAsync()
+        {
+            try
+            {
+                List<PackageInfo> data = await _unitWork._iBookingRepository.GetALLPackageList();
                 return data;
             }
             catch (Exception ex)

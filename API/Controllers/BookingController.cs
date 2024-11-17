@@ -37,13 +37,31 @@ namespace BookingService.Controllers
             }
         }
 
-        [HttpPost("GetScheduleList", Name = "GetScheduleList")]
-        public async Task<IActionResult> GetScheduleList()
+        [HttpPost("GetAllClassScheduleList", Name = "GetAllClassScheduleList")]
+        public async Task<IActionResult> GetScheduleList(ScheduleListInput listInput)
         {
             try
             {
                 CodeMessageWithData<List<ScheduleInfo>> code = new CodeMessageWithData<List<ScheduleInfo>>();
-                var data = await _bookingScheduleManager.GetScheduleInfosAsync();
+                var data = await _bookingScheduleManager.GetScheduleInfosAsync(listInput);
+                code.code = "201";
+                code.message = "Okay";
+                code.data = data;
+                return Ok(code);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetAllPackageList", Name = "GetAllPackageList")]
+        public async Task<IActionResult> GetAllPackageList()
+        {
+            try
+            {
+                CodeMessageWithData<List<PackageInfo>> code = new CodeMessageWithData<List<PackageInfo>>();
+                var data = await _bookingScheduleManager.GetPackageInfosAsync();
                 code.code = "201";
                 code.message = "Okay";
                 code.data = data;
